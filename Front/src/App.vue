@@ -49,7 +49,7 @@ export default {
   <main class="container">
     <ul>
       <li v-for="(item, i) in store.TodoList">
-        {{ item }}
+        {{ item.task }}
       </li>
     </ul>
   </main>
