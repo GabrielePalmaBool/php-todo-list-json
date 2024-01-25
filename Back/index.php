@@ -6,12 +6,31 @@
 
     $List = [
 
-        'COMPRARE PATATE',
-        'PORTARE FUORI IL CANE',
-        'SISTEMARE PORTA',
-        'RITIRARE BUCATO',
-        'RITIRARE ABITO',
-        'COMPRARE UOVA'
+        [ 
+            'task' => 'COMPRARE PATATE',
+            'status' => false,
+        ],
+        [ 
+            'task' => 'PORTARE FUORI IL CANE',
+            'status' => true,
+        ],
+        [ 
+            'task' => 'SISTEMARE PORTA',
+            'status' => false,
+        ],
+        [ 
+            'task' => 'RITIRARE BUCATO',
+            'status' => false,
+        ],
+        [ 
+            'task' => 'RITIRARE ABITO',
+            'status' => false,
+        ],
+        [ 
+            'task' => 'COMPRARE UOVA',
+            'status' => false,
+        ],
+
     ];
 
 
