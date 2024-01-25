@@ -23,7 +23,7 @@ export default {
         .get(myURL)
         .then((res) => {
           store.TodoList = res.data;
-          console.log(store.CardList);
+          console.log(store.TodoList);
         })
         .catch((err) => {
           console.log("Errori", err);
