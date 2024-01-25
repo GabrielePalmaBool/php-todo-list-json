@@ -16,17 +16,13 @@ export default {
     getCards() {
       let myURL = store.apiURL;
 
-      //Se è stato selezionato qualcosa dal selettore
-      if (store.searchText !== "") {
-        myURL = `https://db.ygoprodeck.com/api/v7/cardinfo.php?${store.Arc}=${store.searchText}`;
-      }
-
       console.log(myURL);
+
       //prima chiamata axios
       axios
         .get(myURL)
         .then((res) => {
-          store.TodoList = res.data.data;
+          store.TodoList = res.data;
           console.log(store.CardList);
         })
         .catch((err) => {
@@ -41,8 +37,49 @@ export default {
 };
 </script>
 
-<template></template>
+<template>
+  <header class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Lista Cose da fare</h1>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <ul>
+      <li v-for="(item, i) in store.TodoList">
+        {{ item }}
+      </li>
+    </ul>
+  </main>
+</template>
 
 <style lang="scss">
-@use "./styles/general.scss";
+@use "./styles/partials/variables" as *;
+@use "./styles/general.scss" as *;
+
+.row {
+  margin-top: 50px;
+  text-align: center;
+
+  .col {
+    h1 {
+      color: $color;
+    }
+  }
+}
+
+main {
+  text-align: center;
+  ul {
+    margin-top: 50px;
+    list-style-type: none;
+
+    li {
+      color: $color1;
+      font-weight: bold;
+    }
+  }
+}
 </style>
