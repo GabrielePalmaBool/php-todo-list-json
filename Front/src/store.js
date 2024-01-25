@@ -2,6 +2,6 @@ import { reactive } from "vue";
 
 export const store = reactive({
   TodoList: [],
-  apiURL: "http://localhost/php-todo-list-json/Back/",
+  apiURL: "http://localhost:80/php-todo-list-json/Back/",
   searchText: "",
 });
