@@ -13,6 +13,7 @@ export default {
   },
 
   methods: {
+    //Funzione per ottenere l'intera lista iniziale metodo (get)
     getList() {
       let myURL = store.apiURL;
 
@@ -29,6 +30,8 @@ export default {
           console.log("Errori", err);
         });
     },
+
+    //Funzione per cambiare lo stato di un item della lista metodo (post)
     changeStatus(i) {
       let myURL = store.apiURL1;
 
@@ -36,11 +39,40 @@ export default {
         index: i,
       };
 
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
+
       //prima chiamata axios post
       axios
-        .post(myURL, data, {
-          headers: { "Content-Type": "multipart/form-data" },
+        .post(myURL, data, config)
+        .then((res) => {
+          store.TodoList = res.data;
+          console.log(store.TodoList);
         })
+
+        .catch((err) => {
+          console.log("Errori", err);
+        });
+    },
+
+    //Funzione per aggiungere un nuvo task alla lista metodo (post)
+    pushTask() {
+      console.log("PushTask:" + store.insTask);
+
+      let myURL = store.apiURL2;
+
+      const data = {
+        value: store.insTask,
+      };
+
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
+
+      //prima chiamata axios post
+      axios
+        .post(myURL, data, config)
         .then((res) => {
           store.TodoList = res.data;
           console.log(store.TodoList);
@@ -80,6 +112,27 @@ export default {
         <p v-else>{{ item.task }}</p>
       </li>
     </ul>
+    <div class="row">
+      <div class="col-auto">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Inserisci nuovo task."
+          v-model.trim="store.insTask"
+          @keyup.enter="pushTask()"
+        />
+      </div>
+
+      <div class="col-auto">
+        <button
+          type="submit"
+          class="btn btn-primary mb-2"
+          @click.prevent="pushTask()"
+        >
+          Inserisci
+        </button>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -114,6 +167,21 @@ main {
     }
     .no_complete {
       color: rgb(4, 0, 255);
+    }
+  }
+  .row {
+    justify-content: center;
+    .form-control {
+      display: inline-block;
+    }
+
+    .btn {
+      display: inline-block;
+      color: $color2;
+    }
+
+    .btn:hover {
+      color: $color1;
     }
   }
 }
