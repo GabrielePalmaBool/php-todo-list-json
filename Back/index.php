@@ -39,20 +39,7 @@
     //inserosco un nuovo elemento
     file_put_contents('list.json', $items);
 
-    echo json_encode($List);
-
-    // $List =[
-
-    //     'PANE'
-
-    // ];
-
-    //  $itemN = json_encode($List);
-    // // //inserosco un nuovo elemento
-    //  file_put_contents('list.json', $itemN,FILE_APPEND);
-    // // echo json_encode($List);
-
-
+    echo $items;
 
 ?>
     

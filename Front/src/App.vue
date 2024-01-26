@@ -31,23 +31,16 @@ export default {
     },
     changeStatus(i) {
       let myURL = store.apiURL1;
-      let val = true;
+
       const data = {
         index: i,
       };
 
       //prima chiamata axios post
       axios
-        .post(
-          myURL,
-          {
-            item: { some: false },
-            type: "products",
-          },
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        )
+        .post(myURL, data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
         .then((res) => {
           store.TodoList = res.data;
           console.log(store.TodoList);
@@ -81,7 +74,10 @@ export default {
         :class="item.status ? 'complete' : 'no_complete'"
         @click="changeStatus(i)"
       >
-        {{ item.task }}
+        <del v-if="item.status == true"
+          ><p>{{ item.task }}</p></del
+        >
+        <p v-else>{{ item.task }}</p>
       </li>
     </ul>
   </main>
