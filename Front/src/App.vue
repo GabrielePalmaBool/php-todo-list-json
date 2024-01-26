@@ -13,12 +13,12 @@ export default {
   },
 
   methods: {
-    getCards() {
+    getList() {
       let myURL = store.apiURL;
 
       console.log(myURL);
 
-      //prima chiamata axios
+      //prima chiamata axios get
       axios
         .get(myURL)
         .then((res) => {
@@ -29,10 +29,38 @@ export default {
           console.log("Errori", err);
         });
     },
+    changeStatus(i) {
+      let myURL = store.apiURL1;
+      let val = true;
+      const data = {
+        index: i,
+      };
+
+      //prima chiamata axios post
+      axios
+        .post(
+          myURL,
+          {
+            item: { some: false },
+            type: "products",
+          },
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((res) => {
+          store.TodoList = res.data;
+          console.log(store.TodoList);
+        })
+
+        .catch((err) => {
+          console.log("Errori", err);
+        });
+    },
   },
 
   created() {
-    this.getCards();
+    this.getList();
   },
 };
 </script>
@@ -48,7 +76,11 @@ export default {
 
   <main class="container">
     <ul>
-      <li v-for="(item, i) in store.TodoList">
+      <li
+        v-for="(item, i) in store.TodoList"
+        :class="item.status ? 'complete' : 'no_complete'"
+        @click="changeStatus(i)"
+      >
         {{ item.task }}
       </li>
     </ul>
@@ -79,6 +111,13 @@ main {
     li {
       color: $color1;
       font-weight: bold;
+    }
+
+    .complete {
+      color: green;
+    }
+    .no_complete {
+      color: rgb(4, 0, 255);
     }
   }
 }
