@@ -13,7 +13,7 @@ export default {
   },
 
   methods: {
-    //Funzione per ottenere l'intera lista iniziale metodo (get)
+    //Funzione per ottenere l'intera lista iniziale: metodo (get)
     getList() {
       let myURL = store.apiURL;
 
@@ -31,7 +31,7 @@ export default {
         });
     },
 
-    //Funzione per cambiare lo stato di un item della lista metodo (post)
+    //Funzione per cambiare lo stato di un item della lista: metodo (post)
     changeStatus(i) {
       let myURL = store.apiURL1;
 
@@ -56,7 +56,7 @@ export default {
         });
     },
 
-    //Funzione per aggiungere un nuvo task alla lista metodo (post)
+    //Funzione per aggiungere un nuovo task alla lista: metodo (post)
     pushTask() {
       console.log("PushTask:" + store.insTask);
 
@@ -82,6 +82,26 @@ export default {
           console.log("Errori", err);
         });
     },
+
+    //Funzione per cancellare un task alla lista: metodo (get)
+    delTask(i) {
+      let myURL = store.apiURL3;
+
+      const data = {
+        index: i,
+      };
+
+      //prima chiamata axios get
+      axios
+        .get(myURL, data)
+        .then((res) => {
+          store.TodoList = res.data;
+          console.log(store.TodoList);
+        })
+        .catch((err) => {
+          console.log("Errori", err);
+        });
+    },
   },
 
   created() {
@@ -103,13 +123,23 @@ export default {
     <ul>
       <li
         v-for="(item, i) in store.TodoList"
+        :key="i"
         :class="item.status ? 'complete' : 'no_complete'"
-        @click="changeStatus(i)"
       >
-        <del v-if="item.status == true"
-          ><p>{{ item.task }}</p></del
+        <div class="blockTask" @click="changeStatus(i)">
+          <del v-if="item.status == true"
+            ><p>{{ item.task }}</p></del
+          >
+          <p v-else>{{ item.task }}</p>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-secondary mb-2"
+          @click="delTask(i)"
         >
-        <p v-else>{{ item.task }}</p>
+          Elimina
+        </button>
       </li>
     </ul>
     <div class="row">
@@ -160,6 +190,13 @@ main {
     li {
       color: $color1;
       font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+
+      .blockTask {
+        display: inline-block;
+        margin-right: 20px;
+      }
     }
 
     .complete {
