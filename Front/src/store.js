@@ -6,9 +6,9 @@ export const store = reactive({
   insTask: "",
 
   //modifica status task
-  apiURL1: "http://localhost:80/php-todo-list-json/Back/result.php",
+  status: "result.php",
   //aggiunta nuovo task alla lista
-  apiURL2: "http://localhost:80/php-todo-list-json/Back/addTask.php",
+  addTask: "addTask.php",
   //eliminazione task dalla lista
-  apiURL3: "http://localhost:80/php-todo-list-json/Back/dellTask.php",
+  delTask: "dellTask.php",
 });

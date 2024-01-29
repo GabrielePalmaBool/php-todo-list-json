@@ -1,5 +1,5 @@
 <?php
-    
+
     header('Content-Type: application/json');   
     header('Access-Control-Allow-Headers: X-Requested-With'); 
     header('Access-Control-Allow-Origin: http://localhost:5173'); 
@@ -13,10 +13,11 @@
     //convertoa acquisisco stringa da J_son formato
     $string = file_get_contents('list.json');
     $list= json_decode($string, true);
-
+	
 	//elimino posizione elemento in lista e aggiorno contemporaneamente la lista
-    array_splice($list,$index,1);
- 
+	array_splice($list,$index,1);
+
+	
     //ricodifico la nuova lista in j_son
     $items = json_encode($list);
     

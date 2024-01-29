@@ -33,7 +33,7 @@ export default {
 
     //Funzione per cambiare lo stato di un item della lista: metodo (post)
     changeStatus(i) {
-      let myURL = store.apiURL1;
+      let myURL = store.apiURL + store.status;
 
       const data = {
         index: i,
@@ -60,7 +60,7 @@ export default {
     pushTask() {
       console.log("PushTask:" + store.insTask);
 
-      let myURL = store.apiURL2;
+      let myURL = store.apiURL + store.addTask;
 
       const data = {
         value: store.insTask,
@@ -85,15 +85,17 @@ export default {
 
     //Funzione per cancellare un task alla lista: metodo (get)
     delTask(i) {
-      let myURL = store.apiURL3;
+      let myURL = store.apiURL + store.delTask;
 
-      const data = {
-        index: i,
+      const params = {
+        params: {
+          index: i,
+        },
       };
 
       //prima chiamata axios get
       axios
-        .get(myURL, data)
+        .get(myURL, params)
         .then((res) => {
           store.TodoList = res.data;
           console.log(store.TodoList);
@@ -196,6 +198,7 @@ main {
       .blockTask {
         display: inline-block;
         margin-right: 20px;
+        cursor: pointer;
       }
     }
 
